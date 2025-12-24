@@ -10,8 +10,8 @@ class TextType(Enum):
     IMAGE = "image"
 
 class TextNode():
-    def __init__(self, content, text_type, url=None):
-        self.text = content
+    def __init__(self, text, text_type, url=None):
+        self.text = text
         self.text_type = text_type
         self.url = url
 
@@ -31,16 +31,16 @@ class TextNode():
 def text_node_to_html_node(text_node):
     match text_node.text_type:
         case TextType.TEXT:
-            return LeafNode(text_node.content)
+            return LeafNode(None, text_node.text)
         case TextType.BOLD:
-            return LeafNode("b", text_node.content)
+            return LeafNode("b", text_node.text)
         case TextType.ITALIC:
-            return LeafNode("i", text_node.content)
+            return LeafNode("i", text_node.text)
         case TextType.CODE:
-            return LeafNode("code", text_node.content)
+            return LeafNode("code", text_node.text)
         case TextType.LINK:
-            return LeafNode("a", text_node.content, {"href": text_node.url})
+            return LeafNode("a", text_node.text, {"href": text_node.url})
         case TextType.IMAGE:
-            return LeafNode("img", "", {"src": text_node.url, "alt": text_node.content})
+            return LeafNode("img", "", {"src": text_node.url, "alt": text_node.text})
         case _:
             raise ValueError("Invalid leaf node text type")
