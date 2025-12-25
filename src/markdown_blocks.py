@@ -1,7 +1,7 @@
 def markdown_to_blocks(markdown):
-    blocks = markdown.strip("\n")
+    blocks = markdown.strip()
     blocks = blocks.split("\n\n")
     for block in blocks:
         if block == "":
-            del block
+            blocks.remove(block)
     return blocks
