@@ -1,6 +1,14 @@
 import unittest
 
-from splitting_functions import split_nodes_delimiter, extract_markdown_links, extract_markdown_images, split_nodes_image, split_nodes_link
+from splitting_functions import (
+    split_nodes_delimiter,
+    extract_markdown_links,
+    extract_markdown_images,
+    split_nodes_image,
+    split_nodes_link,
+    text_to_textnode,
+)
+
 from textnode import TextNode, TextType
 
 class TestSplitFunctions(unittest.TestCase):
@@ -52,14 +60,14 @@ class TestSplitFunctions(unittest.TestCase):
             self.assertEqual(str(err), "Invalid Markdown Syntax: Missing Matching Delimiter")
 
     def test_bold_node(self):
-        node = TextNode("This is a bold node", TextType.BOLD)
+        node = TextNode("This is a **bold** node", TextType.BOLD)
         node2 = TextNode("This is a _italic_ word", TextType.TEXT)
         node_list = [node, node2]
         new_nodes = split_nodes_delimiter(node_list, "_", TextType.ITALIC)
         self.assertEqual(
             new_nodes,
             [
-                TextNode("This is a bold node", TextType.BOLD),
+                TextNode("This is a **bold** node", TextType.BOLD),
                 TextNode("This is a " , TextType.TEXT),
                 TextNode("italic", TextType.ITALIC),
                 TextNode(" word", TextType.TEXT),
@@ -145,6 +153,44 @@ class TestSplitFunctions(unittest.TestCase):
                 TextNode("This is text with an ", TextType.TEXT),
                 TextNode("image", TextType.IMAGE, "https://i.imgur.com/zjjcJKZ.png"),
                 TextNode(" and another", TextType.TEXT),
+            ]
+        )
+
+    def test_text_to_textnode(self):
+        text = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        split_text = text_to_textnode(text)
+        self.assertEqual(
+            split_text,
+            [
+                TextNode("This is ", TextType.TEXT),
+                TextNode("text", TextType.BOLD),
+                TextNode(" with an ", TextType.TEXT),
+                TextNode("italic", TextType.ITALIC),
+                TextNode(" word and a ", TextType.TEXT),
+                TextNode("code block", TextType.CODE),
+                TextNode(" and an ", TextType.TEXT),
+                TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+                TextNode(" and a ", TextType.TEXT),
+                TextNode("link", TextType.LINK, "https://boot.dev"),
+            ]
+        )
+
+    def test_text_to_textnode(self):
+        text = "This is _text_ with an **italic** word and a ![code block](https://i.imgur.com/fJRm4Vk.jpeg) and an `obi wan image` and a [link](https://boot.dev)"
+        split_text = text_to_textnode(text)
+        self.assertEqual(
+            split_text,
+            [
+                TextNode("This is ", TextType.TEXT),
+                TextNode("text", TextType.ITALIC),
+                TextNode(" with an ", TextType.TEXT),
+                TextNode("italic", TextType.BOLD),
+                TextNode(" word and a ", TextType.TEXT),
+                TextNode("code block", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+                TextNode(" and an ", TextType.TEXT),
+                TextNode("obi wan image", TextType.CODE),
+                TextNode(" and a ", TextType.TEXT),
+                TextNode("link", TextType.LINK, "https://boot.dev"),
             ]
         )
 
