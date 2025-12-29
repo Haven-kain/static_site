@@ -13,7 +13,8 @@ class HTMLNode():
             return ""
         
         attrs = ""
-        for key, value in self.props:
+        for key in self.props:
+            value = self.props[key]
             attrs += f' {key}="{value}"'
         return attrs
     
