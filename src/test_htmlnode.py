@@ -77,9 +77,6 @@ class TestParentNode(unittest.TestCase):
             "<div><span>child</span><b>sister</b><p>brother</p></div>"
                          )
 
-    def family_tree(self):
-        pass
-
     def test_no_children(self):
         with self.assertRaises(Exception):
             ParentNode("p")
