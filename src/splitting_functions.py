@@ -13,14 +13,14 @@ def split_nodes_delimiter(old_node, delimiter, text_type):
             new_nodes.append(node)
             continue
 
-        split_node = node.split(delimiter)
-        if len(split_node) %2 == 0:
+        split_node = node.text.split(delimiter)
+        if len(split_node) % 2 == 0:
             raise Exception("Invalid Markdown Syntax: Missing Matching Delimiter")
         
-        for node in split_node:
-            if not node.strip():
-                new_nodes.append(TextNode(node, text_type))
+        for i in range(len(split_node)):
+            if i % 2 != 0:
+                new_nodes.append(TextNode(split_node[i], text_type))
                 continue
-            new_nodes.append(TextNode(node, TextType.TEXT))
+            new_nodes.append(TextNode(split_node[i], TextType.TEXT))
     return new_nodes
             
