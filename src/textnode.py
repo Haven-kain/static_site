@@ -1,6 +1,6 @@
 from enum import Enum
 
-from htmlnode import LeafNode
+from htmlnode import LeafNode, ParentNode
 
 class TextType(Enum):
     TEXT = "text",
@@ -25,12 +25,19 @@ class TextNode:
         return f"TextNode({self.text}, {self.text_type}, {self.url})"
     
 def text_node_to_html_node(text_node):
+    node_check = isinstance(text_node.text, TextNode)
+    nested = text_node_to_html_node(node_check)
+
     match text_node.text_type:
         case TextType.TEXT:
             return LeafNode(None, text_node.text, text_node.url)
         case TextType.BOLD:
+            if node_check:
+                return ParentNode("b", nested, text_node.url)
             return LeafNode("b", text_node.text, text_node.url)
         case TextType.ITALIC:
+            if node_check:
+                return ParentNode("i", nested, text_node.url)
             return LeafNode("i", text_node.text, text_node.url)
         case TextType.CODE:
             return LeafNode("code", text_node.text, text_node.url)
