@@ -2,12 +2,6 @@ import re
 
 from textnode import TextNode, TextType
 
-"""
-Functionality to add later:
--Recursive checking of delimiters
--Dynamic checking of delimiters
-"""
-
 def split_nested_nodes(old_node, delimiter, text_type):
     new_nodes = []
     for node in old_node:
