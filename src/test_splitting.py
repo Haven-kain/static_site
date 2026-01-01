@@ -1,6 +1,6 @@
 import unittest
 
-from splitting_functions import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_image, split_nodes_link, text_to_textnodes
+from splitting_functions import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_image, split_nodes_link, text_to_textnodes, split_nested_nodes
 from textnode import TextNode, TextType
 
 class TestSplittingDelims(unittest.TestCase):
@@ -55,7 +55,7 @@ class TestSplittingDelims(unittest.TestCase):
             split_nodes_delimiter([node4], "_", TextType.ITALIC)
             split_nodes_delimiter([node5], "*", TextType.BOLD)
             split_nodes_delimiter([node6], "*", TextType.BOLD)
-"""
+
 class TestSplittingNested(unittest.TestCase):
     def test_code(self):
         node = TextNode("This is text with a `code block` word", TextType.TEXT)
@@ -124,7 +124,7 @@ class TestSplittingNested(unittest.TestCase):
                 TextNode(" word", TextType.TEXT)
             ]
         )
-"""
+
 class TestExtraction(unittest.TestCase):
     def test_extract_markdown_images(self):
         matches = extract_markdown_images(

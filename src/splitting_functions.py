@@ -2,7 +2,7 @@ import re
 
 from textnode import TextNode, TextType
 
-"""
+
 def split_nested_nodes(old_node, delimiter, text_type):
     new_nodes = []
     for node in old_node:
@@ -24,14 +24,12 @@ def split_nested_nodes(old_node, delimiter, text_type):
                 case "*":
                     node = split_nodes_delimiter([node], "*", TextType.BOLD)
                     split_nodes[i] = TextNode(node[1], current_node.text_type)
-                    print(split_nodes[i])
                 case "_":
                     node = split_nodes_delimiter([node], "_", TextType.ITALIC)
                     split_nodes[i] = TextNode(node[1], current_node.text_type)
-                    print(split_nodes[i])
         new_nodes.extend(split_nodes)
     return new_nodes
-"""
+
     
 def split_nodes_delimiter(old_node, delimiter, text_type):    
     new_nodes = []
