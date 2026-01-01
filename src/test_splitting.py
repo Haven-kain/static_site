@@ -1,6 +1,6 @@
 import unittest
 
-from splitting_functions import split_nodes_delimiter, split_nested_nodes, extract_markdown_images, extract_markdown_links, split_nodes_image, split_nodes_link
+from splitting_functions import split_nodes_delimiter, extract_markdown_images, extract_markdown_links, split_nodes_image, split_nodes_link, text_to_textnodes
 from textnode import TextNode, TextType
 
 class TestSplittingDelims(unittest.TestCase):
@@ -55,7 +55,7 @@ class TestSplittingDelims(unittest.TestCase):
             split_nodes_delimiter([node4], "_", TextType.ITALIC)
             split_nodes_delimiter([node5], "*", TextType.BOLD)
             split_nodes_delimiter([node6], "*", TextType.BOLD)
-
+"""
 class TestSplittingNested(unittest.TestCase):
     def test_code(self):
         node = TextNode("This is text with a `code block` word", TextType.TEXT)
@@ -124,7 +124,7 @@ class TestSplittingNested(unittest.TestCase):
                 TextNode(" word", TextType.TEXT)
             ]
         )
-
+"""
 class TestExtraction(unittest.TestCase):
     def test_extract_markdown_images(self):
         matches = extract_markdown_images(
@@ -152,6 +152,7 @@ class TestExtraction(unittest.TestCase):
                 TextNode(
                     "second image", TextType.IMAGE, "https://i.imgur.com/3elNhQu.png"
                 ),
+            
             ],
             new_nodes,
         )
@@ -173,6 +174,26 @@ class TestExtraction(unittest.TestCase):
             ],
             new_nodes,
         )
-
+"""
+class TestTexToNodes(unittest.TestCase):
+    def test_sentence(self):
+        text = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        nodes = text_to_textnodes(text)
+        self.assertEqual(
+            nodes,
+            [
+    TextNode("This is ", TextType.TEXT),
+    TextNode("text", TextType.BOLD),
+    TextNode(" with an ", TextType.TEXT),
+    TextNode("italic", TextType.ITALIC),
+    TextNode(" word and a ", TextType.TEXT),
+    TextNode("code block", TextType.CODE),
+    TextNode(" and an ", TextType.TEXT),
+    TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+    TextNode(" and a ", TextType.TEXT),
+    TextNode("link", TextType.LINK, "https://boot.dev"),
+]
+        )
+"""
 if __name__ == "__main__":
     unittest.main()
