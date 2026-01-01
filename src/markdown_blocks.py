@@ -15,7 +15,7 @@ def markdown_to_blocks(markdown):
         blocks = []
         for i in range(len(code_split)):
             if i % 2 != 0:
-                blocks.append(code_split[i].strip())
+                blocks.append("```" + code_split[i].strip() + "```")
                 continue
             blocks.extend([block.strip() for block in code_split[i].split("\n\n") if block.strip() != ""])
         return blocks
@@ -24,4 +24,26 @@ def markdown_to_blocks(markdown):
     return blocks
 
 def block_to_blocktype(block):
-    pass
+    lines = block.split("\n")
+    if block.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### ")):
+        return BlockType.HEADING
+    elif block.startswith("```") and block.startswith("```"):
+        return BlockType.CODE
+    elif block.startswith(">"):
+        for line in lines:
+            if not line.startswith(">"):
+                return BlockType.PARAGRAPH
+        return BlockType.QUOTE
+    elif block.startswith("- "):
+        for line in lines:
+            if not line.startswith("- "):
+                return BlockType.PARAGRAPH
+        return BlockType.UL
+    elif block.startswith("1. "):
+        line_count = 1
+        for line in lines:
+            if not line.startswith(f"{line_count}. "):
+                return BlockType.PARAGRAPH
+            line_count += 1
+        return BlockType.OL
+    return BlockType.PARAGRAPH
