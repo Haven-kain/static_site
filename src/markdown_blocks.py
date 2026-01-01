@@ -24,7 +24,9 @@ def markdown_to_blocks(markdown):
     return blocks
 
 def block_to_blocktype(block):
+    block = block.strip()
     lines = block.split("\n")
+    
     if block.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### ")):
         return BlockType.HEADING
     elif block.startswith("```") and block.startswith("```"):
@@ -46,4 +48,5 @@ def block_to_blocktype(block):
                 return BlockType.PARAGRAPH
             line_count += 1
         return BlockType.OL
+    
     return BlockType.PARAGRAPH
