@@ -174,7 +174,7 @@ class TestExtraction(unittest.TestCase):
             ],
             new_nodes,
         )
-"""
+
 class TestTexToNodes(unittest.TestCase):
     def test_sentence(self):
         text = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
@@ -194,6 +194,6 @@ class TestTexToNodes(unittest.TestCase):
     TextNode("link", TextType.LINK, "https://boot.dev"),
 ]
         )
-"""
+
 if __name__ == "__main__":
     unittest.main()
