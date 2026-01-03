@@ -1,5 +1,5 @@
 from markdown_blocks import markdown_to_blocks, BlockType, block_to_blocktype
-from textnode import text_node_to_html_node
+from textnode import text_node_to_html_node, TextNode, TextType
 from htmlnode import ParentNode
 from splitting_functions import text_to_textnodes
 
@@ -33,10 +33,13 @@ def heading_to_html(block):
     return ParentNode(f"h{count}", children)
 
 def code_to_html(block):
-    pass
+    node = TextNode(block, TextType.CODE)
+    node = text_node_to_html_node(node)
+    return ParentNode("pre", [node])
 
 def quote_to_html(block):
-    pass
+    children = text_to_children(block)
+    return ParentNode("blockquote", children)
 
 def ul_to_html(block):
     pass

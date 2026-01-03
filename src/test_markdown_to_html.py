@@ -41,7 +41,30 @@ of markdown.
         )
 
     def test_code(self):
-        pass
+        md = """
+This is a paragraph.
+
+```
+This is a.
+    code block.
+
+
+With extra.
+    new lines.
+        and indentation.
+
+return
+```
+
+This is another paragraph.
+"""
+
+        nodes = markdown_to_html(md)
+        html = nodes.to_html()
+        self.assertEqual(
+            html,
+            "<div><p>This is a paragraph.</p><pre><code>```This is a.\n    code block.\n\n\nWith extra.\n    new lines.\n        and indentation.\n\nreturn```</code></pre><p>This is another paragraph.</p></div>"
+        )
 
     def test_quote(self):
         pass
