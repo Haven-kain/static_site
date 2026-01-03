@@ -1,6 +1,7 @@
 from markdown_blocks import markdown_to_blocks, BlockType, block_to_blocktype
-from textnode import text_node_to_html_node
+from textnode import text_node_to_html_node, TextNode, TextType
 from htmlnode import ParentNode
+from splitting_functions import text_to_textnodes
 
 def markdown_to_html(markdown):
     html = []
@@ -8,7 +9,7 @@ def markdown_to_html(markdown):
     for block in blocks:
         block_type = block_to_blocktype(block)
         if block_type == BlockType.PARAGRAPH:
-            pass
+            html.append(paragraph_to_html(block))
         elif block_type == BlockType.HEADING:
             pass
         elif block_type == BlockType.CODE:
@@ -22,7 +23,8 @@ def markdown_to_html(markdown):
     return ParentNode("div", html)
 
 def paragraph_to_html(block):
-    pass
+    children = text_to_children(block)
+    return ParentNode("p", children)
 
 def heading_to_html(block):
     pass
@@ -40,4 +42,8 @@ def ol_to_html(block):
     pass
 
 def text_to_children(text):
-    pass
+    children = []
+    nodes = text_to_textnodes(text)
+    for node in nodes:
+        children.append(text_node_to_html_node(node))
+    return children
