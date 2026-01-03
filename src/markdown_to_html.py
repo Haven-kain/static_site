@@ -1,5 +1,5 @@
 from markdown_blocks import markdown_to_blocks, BlockType, block_to_blocktype
-from textnode import text_node_to_html_node, TextNode, TextType
+from textnode import text_node_to_html_node
 from htmlnode import ParentNode
 from splitting_functions import text_to_textnodes
 
@@ -11,15 +11,15 @@ def markdown_to_html(markdown):
         if block_type == BlockType.PARAGRAPH:
             html.append(paragraph_to_html(block))
         elif block_type == BlockType.HEADING:
-            pass
+            html.append(heading_to_html(block))
         elif block_type == BlockType.CODE:
-            pass
+            html.append(code_to_html(block))
         elif block_type == BlockType.QUOTE:
-            pass
+            html.append(quote_to_html(block))
         elif block_type == BlockType.UL:
-            pass
+            html.append(ul_to_html(block))
         elif block_type == BlockType.OL:
-            pass
+            html.append(ol_to_html(block))
     return ParentNode("div", html)
 
 def paragraph_to_html(block):
@@ -27,7 +27,10 @@ def paragraph_to_html(block):
     return ParentNode("p", children)
 
 def heading_to_html(block):
-    pass
+    block = block.split("# ")
+    count = len(block[0]) + 1
+    children = text_to_children(block[1])
+    return ParentNode(f"h{count}", children)
 
 def code_to_html(block):
     pass

@@ -21,7 +21,24 @@ of markdown.
         )
 
     def test_heading(self):
-        pass
+        md = """
+# This is.
+
+## Markdown.
+
+### With multiple.
+
+###### Headings.
+
+####### and a paragraph.
+"""
+
+        nodes = markdown_to_html(md)
+        html = nodes.to_html()
+        self.assertEqual(
+            html,
+            "<div><h1>This is.</h1><h2>Markdown.</h2><h3>With multiple.</h3><h6>Headings.</h6><p>####### and a paragraph.</p></div>"
+        )
 
     def test_code(self):
         pass
@@ -34,7 +51,7 @@ of markdown.
 
     def test_ol(self):
         pass
-    
+
 
 if __name__ == "__main__":
     unittest.main()
