@@ -41,7 +41,7 @@ class ParentNode(HTMLNode):
         if self.tag == None or self.tag == "":
             raise ValueError("Parent nodes must have a tag")
         if self.children == None or self.children == []:
-            raise ValueError("PArent nodes must have children")
+            raise ValueError("Parent nodes must have children")
         
         parent_html = ""
         for child in self.children:
