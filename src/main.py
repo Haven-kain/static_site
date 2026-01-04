@@ -1,5 +1,5 @@
 from static_copy import copy_static
-from generate_pages import generate_recursive
+from generate_pages import generate_page, generate_recursive
 
 def main():
     copy_static("./static", "./public")
