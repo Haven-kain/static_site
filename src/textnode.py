@@ -29,14 +29,8 @@ def text_node_to_html_node(text_node):
         case TextType.TEXT:
             return LeafNode(None, text_node.text, text_node.url)
         case TextType.BOLD:
-            if isinstance(text_node.text, TextNode):
-                nested = text_node_to_html_node(text_node.text)
-                return ParentNode("b", nested, text_node.url)
             return LeafNode("b", text_node.text, text_node.url)
         case TextType.ITALIC:
-            if isinstance(text_node.text, TextNode):
-                nested = text_node_to_html_node(text_node.text)
-                return ParentNode("i", nested, text_node.url)
             return LeafNode("i", text_node.text, text_node.url)
         case TextType.CODE:
             return LeafNode("code", text_node.text, text_node.url)
