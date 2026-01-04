@@ -1,4 +1,5 @@
 import os
+import shutil
 
 from markdown_to_html import markdown_to_html
 
@@ -9,10 +10,10 @@ def extract_title(markdown):
             title = line.strip("# ")
     return title
 
-def generate_recursive(src, temp_path, dest):
+def generate_recursive(src, temp_path, dest, basepath):
     if os.path.isfile(src):
         dest = dest.replace(".md", ".html")
-        generate_page(src, temp_path, dest)
+        generate_page(src, temp_path, dest, basepath)
         return
 
     if not os.path.exists(dest):
@@ -23,9 +24,13 @@ def generate_recursive(src, temp_path, dest):
     for item in dir_list:
         src_item = os.path.join(src, item)
         dest_item = os.path.join(dest, item)
-        generate_recursive(src_item, temp_path, dest_item)
+        generate_recursive(src_item, temp_path, dest_item, basepath)
 
-def generate_page(src, temp_path, dest):
+def generate_page(src, temp_path, dest, basepath):
+    if src.endswith(".png"):
+        shutil.copy(src, dest)
+        return
+    
     print(f"Generating page from {src} to {dest} using {temp_path}")
 
     with open(src, "r") as f:
@@ -40,8 +45,8 @@ def generate_page(src, temp_path, dest):
 
     temp = temp.replace("{{ Title }}", title)
     temp = temp.replace("{{ Content }}", html)
-    temp = temp.replace(r'href="/\{(.*?)\}', src)
-    temp = temp.replace(r'src="/\{(.*?)\}', src)
+    temp = temp.replace('href="/', f'href="{basepath}"')
+    temp = temp.replace('src="/', f'href="{basepath}"')
 
     with open(dest, "w") as f:
         f.write(temp)
