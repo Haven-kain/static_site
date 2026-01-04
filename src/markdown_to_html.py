@@ -23,7 +23,9 @@ def markdown_to_html(markdown):
     return ParentNode("div", html)
 
 def paragraph_to_html(block):
-    children = text_to_children(block)
+    lines = [line.strip() for line in block.split("\n")]
+    text = " ".join(lines)
+    children = text_to_children(text)
     return ParentNode("p", children)
 
 def heading_to_html(block):
@@ -33,7 +35,7 @@ def heading_to_html(block):
     return ParentNode(f"h{count}", children)
 
 def code_to_html(block):
-    block = block.strip("```")
+    block = block.strip("```") + "\n"
     node = TextNode(block, TextType.CODE)
     node = text_node_to_html_node(node)
     return ParentNode("pre", [node])
