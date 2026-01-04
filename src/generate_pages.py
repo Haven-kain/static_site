@@ -39,9 +39,9 @@ def generate_page(src, temp_path, dest, basepath):
     with open(temp_path, "r") as f:
         temp = f.read()
 
+    title = extract_title(md)
     node = markdown_to_html(md)
     html = node.to_html()
-    title = extract_title(md)
 
     temp = temp.replace("{{ Title }}", title)
     temp = temp.replace("{{ Content }}", html)
