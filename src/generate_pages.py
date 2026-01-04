@@ -40,6 +40,8 @@ def generate_page(src, temp_path, dest):
 
     temp = temp.replace("{{ Title }}", title)
     temp = temp.replace("{{ Content }}", html)
+    temp = temp.replace(r'href="/\{(.*?)\}', src)
+    temp = temp.replace(r'src="/\{(.*?)\}', src)
 
     with open(dest, "w") as f:
         f.write(temp)
