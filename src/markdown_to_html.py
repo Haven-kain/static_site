@@ -33,15 +33,19 @@ def heading_to_html(block):
     return ParentNode(f"h{count}", children)
 
 def code_to_html(block):
+    block = block.strip("```")
     node = TextNode(block, TextType.CODE)
     node = text_node_to_html_node(node)
     return ParentNode("pre", [node])
 
 def quote_to_html(block):
     children = text_to_children(block)
+    for child in children:
+        child.value = child.value.replace(">", "")
     return ParentNode("blockquote", children)
 
 def ul_to_html(block):
+    children = text_to_children(block)
     pass
 
 def ol_to_html(block):
