@@ -9,7 +9,7 @@ def main():
         basepath = "/"
 
     copy_static("./static", "./docs")
-    generate_recursive("./static", "./template.html", "./docs", basepath)
+    generate_recursive("./content", "./template.html", "./docs", basepath)
 
 if __name__ == "__main__":
     main()
