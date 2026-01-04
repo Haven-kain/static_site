@@ -39,17 +39,25 @@ def code_to_html(block):
     return ParentNode("pre", [node])
 
 def quote_to_html(block):
-    children = text_to_children(block)
-    for child in children:
-        child.value = child.value.replace(">", "")
+    children = []
+    lines = [line .lstrip() for line in block.split(">")]
+    for line in lines:
+        children.extend(text_to_children(line))
     return ParentNode("blockquote", children)
 
 def ul_to_html(block):
-    children = text_to_children(block)
-    pass
+    children = []
+    lines = [line.lstrip() for line in block.split("- ")]
+    for line in lines:
+        children.extend(text_to_children(line))
+
+    for child in children:
+        child.tag = "li"
+    return ParentNode("ul", children)
 
 def ol_to_html(block):
-    pass
+    children = text_to_children(block)
+    return ParentNode("ol", children)
 
 def text_to_children(text):
     children = []

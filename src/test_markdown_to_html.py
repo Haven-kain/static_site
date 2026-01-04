@@ -73,9 +73,9 @@ This is another paragraph.
 
 With a paragraph.
 
->in between
+> in between
 
->more quotes.
+> more quotes.
 """
 
         nodes = markdown_to_html(md)
@@ -86,7 +86,26 @@ With a paragraph.
         )
 
     def test_ul(self):
-        pass
+        md = """
+This is a.
+
+- Unordered list
+- With
+- Extra list items
+
+-and a paragraph
+
+- Followed by
+
+- Another unordered list.
+"""
+
+        nodes = markdown_to_html(md)
+        html = nodes.to_html()
+        self.assertEqual(
+            html,
+            "<div><p>This is a.</p><ul><li>Unordered list\n</li><li>With\n</li><li>Extra list items</li></ul><p>-and a paragraph</p><ul><li>Followed by</li></ul><ul><li>Another unordered list.</li></ul></div>"
+        )
 
     def test_ol(self):
         pass
