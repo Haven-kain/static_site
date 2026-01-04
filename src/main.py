@@ -1,8 +1,8 @@
 from textnode import TextNode, TextType
+from static_copy import copy_static
 
 def main():
-    node = TextNode("This is some text", TextType.TEXT)
-    print(node)
+    copy_static("./static", "./public")
 
 if __name__ == "__main__":
     main()
