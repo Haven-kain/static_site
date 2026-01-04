@@ -49,12 +49,9 @@ def quote_to_html(block):
 
 def ul_to_html(block):
     children = []
-    lines = [line.lstrip() for line in block.split("- ")]
+    lines = [line.strip() for line in block.split("- ") if line.strip() != ""]
     for line in lines:
-        children.extend(text_to_children(line))
-
-    for child in children:
-        child.tag = "li"
+        children.append(ParentNode("li", text_to_children(line)))
     return ParentNode("ul", children)
 
 def ol_to_html(block):
@@ -64,7 +61,7 @@ def ol_to_html(block):
     line_count = 1
     for line in lines:
         line = line.strip(f"{line_count}. ")
-        children.extend(text_to_children(line))
+        children.append(ParentNode("li", text_to_children(line)))
         line_count += 1
 
     for child in children:

@@ -104,7 +104,7 @@ This is a.
         html = nodes.to_html()
         self.assertEqual(
             html,
-            "<div><p>This is a.</p><ul><li>Unordered list\n</li><li>With\n</li><li>Extra list items</li></ul><p>-and a paragraph</p><ul><li>Followed by</li></ul><ul><li>Another unordered list.</li></ul></div>"
+            "<div><p>This is a.</p><ul><li>Unordered list</li><li>With</li><li>Extra list items</li></ul><p>-and a paragraph</p><ul><li>Followed by</li></ul><ul><li>Another unordered list.</li></ul></div>"
         )
 
     def test_ol(self):
