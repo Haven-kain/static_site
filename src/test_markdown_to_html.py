@@ -108,7 +108,26 @@ This is a.
         )
 
     def test_ol(self):
-        pass
+        md = """
+This is a.
+
+1. Ordered list
+2. With
+3. some list
+4. items
+
+followed by a paragraph
+
+1. and another
+2. ordered list
+"""
+
+        nodes = markdown_to_html(md)
+        html = nodes.to_html()
+        self.assertEqual(
+            html,
+            "<div><p>This is a.</p><ol><li>Ordered list</li><li>With</li><li>some list</li><li>items</li></ol><p>followed by a paragraph</p><ol><li>and another</li><li>ordered list</li></ol></div>"
+        )
 
 
 if __name__ == "__main__":

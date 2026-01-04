@@ -57,6 +57,16 @@ def ul_to_html(block):
 
 def ol_to_html(block):
     children = text_to_children(block)
+    children = []
+    lines = [line.strip() for line in block.split("\n")]
+    line_count = 1
+    for line in lines:
+        line = line.strip(f"{line_count}. ")
+        children.extend(text_to_children(line))
+        line_count += 1
+
+    for child in children:
+        child.tag = "li"
     return ParentNode("ol", children)
 
 def text_to_children(text):
