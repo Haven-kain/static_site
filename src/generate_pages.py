@@ -1,3 +1,5 @@
+import os
+
 from markdown_to_html import markdown_to_html
 
 def extract_title(markdown):
@@ -7,8 +9,23 @@ def extract_title(markdown):
             title = line.strip("# ")
     return title
 
+def genreate_recursive(src, temp_path, dest):
+    if os.path.isfile(src):
+        generate_page(src, temp_path, dest)
+        return
+
+    dir_list = os.listdir(src)
+
+    for item in dir_list:
+        src_item = os.path.join(src, item)
+        dest_item = os.path.join(src, item)
+        generate_page(src_item, temp_path, dest_item)
+
 def generate_page(src, temp_path, dest):
     print(f"Generating page from {src} to {dest} using {temp_path}")
+
+    if not os.path.exists(dest) and os.path.isdir(src):
+        os.mkdir(dest)
 
     with open(src, "r") as f:
         md = f.read()
