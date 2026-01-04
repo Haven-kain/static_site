@@ -20,7 +20,7 @@ def generate_page(src, temp_path, dest):
     html = node.to_html()
     title = extract_title(md)
 
-    temp = temp.reaplce("{{ Title }}", title)
+    temp = temp.replace("{{ Title }}", title)
     temp = temp.replace("{{ Content }}", html)
 
     with open(dest, "w") as f:

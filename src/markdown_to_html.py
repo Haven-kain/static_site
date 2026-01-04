@@ -75,8 +75,7 @@ def text_to_children(text):
     children = []
     nodes = text_to_textnodes(text)
     for node in nodes:
-        if node.text != "":
-            print(node)
+        if node.text == "\n":
             continue
         children.append(text_node_to_html_node(node))
     return children
