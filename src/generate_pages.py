@@ -9,7 +9,7 @@ def extract_title(markdown):
             title = line.strip("# ")
     return title
 
-def genreate_recursive(src, temp_path, dest):
+def generate_recursive(src, temp_path, dest):
     if os.path.isfile(src):
         generate_page(src, temp_path, dest)
         return
