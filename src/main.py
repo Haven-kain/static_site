@@ -8,8 +8,8 @@ def main():
     if len(sys.argv) < 2:
         basepath = "/"
 
-    copy_static("./static", "./public")
-    generate_recursive(basepath, "./template.html", "./public")
+    copy_static("./static", "./docs")
+    generate_recursive(basepath, "./template.html", "./docs")
 
 if __name__ == "__main__":
     main()
